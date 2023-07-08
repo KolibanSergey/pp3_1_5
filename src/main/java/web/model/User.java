@@ -44,7 +44,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "Bad formed login")
     @Size(min =2,max = 32,message = "login size min 2, max 32")
     private String userName;
-    @Column(name = "password", nullable = false, length = 15)
+    @Column(name = "password", nullable = false)
     private String password;
 
 

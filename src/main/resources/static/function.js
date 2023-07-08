@@ -11,7 +11,7 @@ function getAllUsers () {
             $('#tableAllUsers').append($('<tr>').append(
                     $('<td>').text(user.id),
                     $('<td>').text(user.name),
-                    $('<td>').text(user.lastname),
+                    $('<td>').text(user.lastName),
                     $('<td>').text(user.age),
                     $('<td>').text(user.username),
                     $('<td>').text(roles.join(', ')),
@@ -56,7 +56,7 @@ function getCurrent () {
             $('<tr>').append(
                 $('<td>').text(user.id),
                 $('<td>').text(user.name),
-                $('<td>').text(user.lastname),
+                $('<td>').text(user.lastName),
                 $('<td>').text(user.age),
                 $('<td>').text(user.username),
                 $('<td>').text(roles.join(', ')),
@@ -78,9 +78,9 @@ $('#editUserModal').on('show.bs.modal', (e) => {
         $.getJSON('api/admin/roles', function (editRole) {
             $('#id').empty().val(user.id)
             $('#editName').empty().val(user.name)
-            $('#editLastName').empty().val(user.lastname)
+            $('#editLastName').empty().val(user.lastName)
             $('#editAge').empty().val(user.age)
-            $('#editLogin').empty().val(user.username)
+            $('#editUserName').empty().val(user.username)
             $('#editPassword').empty().val(user.password)
             $('#editRoles').empty()
             $.each(editRole, (i, role) => {
@@ -99,9 +99,9 @@ $('#buttonEditSubmit').on('click', (e) => {
     let editUser = {
         id: $('#id').val(),
         name: $('#editName').val(),
-        lastname: $('#editLastName').val(),
+        lastName: $('#editLastName').val(),
         age: $('#editAge').val(),
-        login: $('#editLogin').val(),
+        userName: $('#editUserName').val(),
         password: $('#editPassword').val(),
         roles: $('#editRoles').val(),
     }
@@ -130,9 +130,9 @@ $('#deleteUserModal').on('show.bs.modal', (e) => {
 
         $('#delId').empty().val(user.id)
         $('#delName').empty().val(user.name)
-        $('#delLastName').empty().val(user.lastname)
+        $('#delLastName').empty().val(user.lastName)
         $('#delAge').empty().val(user.age)
-        $('#delLogin').empty().val(user.username)
+        $('#delUserName').empty().val(user.username)
 
         $('#buttonDel').on('click', (e) => {
             e.preventDefault()
@@ -155,7 +155,7 @@ $('[href="#new"]').on('show.bs.tab', (e) => {
             $('#name').empty().val('')
             $('#lastName').empty().val('')
             $('#age').empty().val('')
-            $('#login').empty().val('')
+            $('#userName').empty().val('')
             $('#password').empty().val('')
             $('#rolesNew').empty().val('')
             $.each(newUser, function (k, role) {
@@ -171,9 +171,9 @@ $('#buttonNew').on('click', (e) => {
 
     let newUser = {
         name: $('#name').val(),
-        lastname: $('#lastName').val(),
+        lastName: $('#lastName').val(),
         age: $('#age').val(),
-        login: $('#username').val(),
+        userName: $('#userName').val(),
         password: $('#password').val(),
         roles: $('#rolesNew').val(),
     }
