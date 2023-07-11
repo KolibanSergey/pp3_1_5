@@ -10,9 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import web.dto.UserDto;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,12 +35,13 @@ public class User implements UserDetails {
     private String lastName;
 
     @Column(name = "age")
-    @Positive(message = "Negative age is not available")
-    @NotNull
+    @Min(value = 0, message = "Age should be >= 0 & < 128")
+    @Max(value = 127, message = "Age should be >= 0 & < 128")
     private byte age;
-    @Column(name = "login")
-    @NotEmpty(message = "Bad formed login")
-    @Size(min =2,max = 32,message = "login size min 2, max 32")
+    @NotEmpty(message = "Username cannot be empty")
+    @Pattern(regexp = "[A-Za-z]{2,15}", message = "Name should be between 2 and 15 latin characters without space")
+    @Size(min = 2, max = 15, message = "Username should be between 2 and 15 latin characters")
+    @Column(name = "login", unique = true)
     private String userName;
     @Column(name = "password", nullable = false)
     private String password;

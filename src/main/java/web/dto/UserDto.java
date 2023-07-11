@@ -3,13 +3,19 @@ package web.dto;
 
 
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 public class UserDto {
     private Long id;
+
     private String name;
     private String lastName;
     private byte age;
+
+
     private String userName;
     private String password;
     private Set<String> roles;

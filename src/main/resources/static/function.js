@@ -186,7 +186,12 @@ $('#buttonNew').on('click', (e) => {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: json,
+
+    }).fail(function(jqXHR, textStatus) {
+        console.log(jqXHR)
+        console.log(textStatus)
     })
+
     getAllUsers(),
         $('#testTab a[href="#usersTable"]').tab('show')
     location.reload()
