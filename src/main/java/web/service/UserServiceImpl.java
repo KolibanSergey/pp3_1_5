@@ -3,12 +3,15 @@ package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.dao.DataIntegrityViolationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import web.dao.UserRepository;
 import web.model.User;
 
+import javax.validation.ValidationException;
 import java.util.List;
 
 @Service
@@ -24,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Bean
-    private BCryptPasswordEncoder encoder(){
+    private BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -40,13 +43,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
+    public void saveUser(User user) throws ValidationException {
 
-            user.setPassword(encoder().encode(user.getPassword()));
-
+        user.setPassword(encoder().encode(user.getPassword()));
+        if (getByUserName(user.getUsername()) != null) {
+            // Пользователь уже существует
+            throw new ValidationException("Пользователь уже существует");
+        }
         userRepository.save(user);
 
+
     }
+
 
     @Override
     public User getUserById(long id) {

@@ -1,6 +1,6 @@
 getAllUsers()
 
-function getAllUsers () {
+function getAllUsers() {
     $('#table').empty()
     $.getJSON('/api/admin', function (data) {
         $.each(data, function (key, user) {
@@ -15,13 +15,11 @@ function getAllUsers () {
                     $('<td>').text(user.age),
                     $('<td>').text(user.username),
                     $('<td>').text(roles.join(', ')),
-                    $('<td>').
-                    append(
+                    $('<td>').append(
                         '<button type=\'button\' data-toggle=\'modal\' class=\'btn-info btn\'' +
                         ' data-target=\'#editUserModal\' data-user-id=\'' + user.id +
                         '\'>Edit</button>'),
-                    $('<td>').
-                    append(
+                    $('<td>').append(
                         '<button type=\'button\' data-toggle=\'modal\' class=\'btn btn-danger\'' +
                         ' data-target=\'#deleteUserModal\' data-user-id=\'' + user.id +
                         '\'>Delete</button>'),
@@ -35,13 +33,12 @@ function getAllUsers () {
 }
 
 
-
 $('[href="#userss"]').on('show.bs.tab', (e) => {
     $('#change-tabContent').hide(),
         getCurrent()
 })
 
-function getCurrent () {
+function getCurrent() {
     $.ajax({
         url: '/getUser',
         type: 'GET',
@@ -65,6 +62,7 @@ function getCurrent () {
         alert('Error Get All Users!')
     })
 }
+
 //Edit
 $('#editUserModal').on('show.bs.modal', (e) => {
     let userId = $(e.relatedTarget).data('user-id')
@@ -180,19 +178,42 @@ $('#buttonNew').on('click', (e) => {
     let json = JSON.stringify(newUser);
     console.log(json);
 
+
     $.ajax({
         url: '/api/admin',
         type: 'POST',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: json,
+        success: function (response) {
 
-    }).fail(function(jqXHR, textStatus) {
-        console.log(jqXHR)
-        console.log(textStatus)
+
+            console.log(response);
+        },
+        error: function (jqXHR) {
+
+            if (jqXHR.status >= 400) {
+
+                let errorMessage = jqXHR.responseJSON.errorMessage;
+
+                console.log(errorMessage);
+                let errorMessage1 = jqXHR.responseJSON.info;
+                console.log(errorMessage1);
+
+                $("div[role='alert']")
+                    .addClass("alert alert-danger")
+                    .text(errorMessage);
+                $("div[role='alert']")
+                    .addClass("alert alert-danger")
+                    .text(errorMessage1);
+            }
+
+        }
+
+    }).done(function () {
+        $('#admin-tab').click()
+        $('#tableAllUsers').empty()
+        getAllUsers()
     })
 
-    getAllUsers(),
-        $('#testTab a[href="#usersTable"]').tab('show')
-    location.reload()
 })

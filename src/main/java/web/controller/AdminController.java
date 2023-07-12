@@ -6,13 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import web.model.Role;
-import web.model.User;
-import web.service.RoleService;
-import web.service.UserService;
 
-import java.util.HashSet;
-import java.util.Set;
+import web.model.User;
 
 @Controller
 public class AdminController {

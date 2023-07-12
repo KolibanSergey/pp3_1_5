@@ -2,7 +2,6 @@ package web.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.istack.NotNull;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
@@ -25,25 +24,26 @@ public class User implements UserDetails {
 
 
     @Column(name = "name")
-    @NotEmpty(message = "Bad formed name")
-    @Size(min =2,max = 32,message = "name size min 2, max 32")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Size(min =2,max = 32,message = "имя должно быть от 2 до 32 символов")
     private String name;
 
     @Column(name = "last_name")
-    @NotEmpty(message = "Bad formed lastName")
-    @Size(min =2,max = 32,message = "Last name size min 2, max 32")
+    @NotEmpty(message = "фамилия не может быть пустой")
+    @Size(min =2,max = 32,message = "фамилмя должна быть от 2 до 32 символов")
     private String lastName;
 
     @Column(name = "age")
-    @Min(value = 0, message = "Age should be >= 0 & < 128")
-    @Max(value = 127, message = "Age should be >= 0 & < 128")
+    @Min(value = 0, message = "полных лет должно быть от 0 до 128")
+    @Max(value = 127, message = "полных лет должно быть от 0 до 128")
     private byte age;
-    @NotEmpty(message = "Username cannot be empty")
-    @Pattern(regexp = "[A-Za-z]{2,15}", message = "Name should be between 2 and 15 latin characters without space")
-    @Size(min = 2, max = 15, message = "Username should be between 2 and 15 latin characters")
+    @NotEmpty(message = "Логин не должен быть пустым")
+    @Pattern(regexp = "[A-Za-z]{2,15}", message = "Логин должен быть от 2 до 32 сивмолов, без пробелов, и только латинские символы")
+    @Size(min = 2, max = 15, message = "Длина логина должны быть от 2 до 15 символов")
     @Column(name = "login", unique = true)
     private String userName;
     @Column(name = "password", nullable = false)
+    @NotEmpty(message = "пароль не должен быть пустым")
     private String password;
 
 
