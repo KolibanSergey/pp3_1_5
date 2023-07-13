@@ -4,26 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import org.springframework.transaction.support.TransactionTemplate;
 import web.dao.UserRepository;
 import web.model.User;
 
+
+import javax.transaction.Transactional;
 import javax.validation.ValidationException;
+
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+
     private final UserRepository userRepository;
+    private final TransactionTemplate transactionTemplate;
 
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, TransactionTemplate transactionTemplate) {
         this.userRepository = userRepository;
 
+        this.transactionTemplate = transactionTemplate;
     }
 
     @Bean
@@ -52,9 +59,18 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.save(user);
 
-
     }
 
+
+    @Override
+    @Transactional
+    public void editUser(User user) {
+
+        user.setPassword(encoder().encode(user.getPassword()));
+
+        userRepository.save(user);
+
+    }
 
     @Override
     public User getUserById(long id) {

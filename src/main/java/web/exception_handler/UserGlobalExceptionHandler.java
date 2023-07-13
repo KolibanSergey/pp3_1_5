@@ -10,27 +10,26 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
-import java.io.PrintWriter;
 import java.util.List;
 
 @ControllerAdvice
 public class UserGlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<CustomExceptionHandler > handleException(EntityUserNotFoundException exception) {
-        CustomExceptionHandler  data = new CustomExceptionHandler ();
+    public ResponseEntity<CustomExceptionHandler> handleException(EntityUserNotFoundException exception) {
+        CustomExceptionHandler data = new CustomExceptionHandler();
         data.setInfo(exception.getMessage());
 
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler
-    public ResponseEntity<CustomExceptionHandler > handleException(Exception exception) {
-        CustomExceptionHandler  data = new CustomExceptionHandler ();
+    public ResponseEntity<CustomExceptionHandler> handleException(Exception exception) {
+        CustomExceptionHandler data = new CustomExceptionHandler();
         data.setInfo(exception.getMessage());
         System.out.println(data);
 
-        return new ResponseEntity<>(data , HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

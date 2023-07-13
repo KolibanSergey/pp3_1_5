@@ -5,12 +5,17 @@ import java.util.List;
 public class ValidationException extends Exception {
     private List<String> errorMessages;
     private String info;
+    private String errorMessage;
 
     public ValidationException() {
     }
 
     public List<String> getErrorMessages() {
         return errorMessages;
+    }
+
+    public ValidationException(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public void setErrorMessages(List<String> errorMessages) {
@@ -24,6 +29,7 @@ public class ValidationException extends Exception {
     public String getInfo() {
         return info;
     }
+
     @Override
     public String toString() {
         return "EntityUserErrorResponse{" +

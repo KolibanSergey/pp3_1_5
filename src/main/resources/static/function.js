@@ -110,6 +110,11 @@ $('#buttonEditSubmit').on('click', (e) => {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         data: JSON.stringify(editUser),
+        success: function (response) {
+
+
+            console.log(response);
+        },
     })
     $('#editUserModal').modal('hide')
     location.reload()
@@ -186,7 +191,6 @@ $('#buttonNew').on('click', (e) => {
         dataType: 'json',
         data: json,
         success: function (response) {
-
 
             console.log(response);
         },

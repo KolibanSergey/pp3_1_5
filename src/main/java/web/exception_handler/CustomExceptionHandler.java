@@ -2,6 +2,7 @@ package web.exception_handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,9 +28,8 @@ public class CustomExceptionHandler {
         return info;
     }
 
-
+    @Override
     public String toString() {
-        return "Пользователь с таким логином уже существует";
-
+        return info;
     }
 }

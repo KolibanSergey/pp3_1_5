@@ -1,12 +1,10 @@
 package web.dto;
 
 
-
 import java.util.Set;
 
 public class UserDto {
     private Long id;
-
     private String name;
     private String lastName;
     private byte age;
@@ -19,7 +17,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String name, String lastName, byte age, String userName, String password, Set<String > roles) {
+    public UserDto(Long id, String name, String lastName, byte age, String userName, String password, Set<String> roles) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
